@@ -1,0 +1,35 @@
+<html>
+<head><title>installing Payroll 2011</title></head>
+<body>
+ <p>Installing Payroll 2011</p>
+ <form method='POST' action='install.php'>
+  <fieldset>
+   <legend>Database Information</legend>
+	<table>
+	 <tr>
+          <td>Please make sure a database user exist exist 
+           with the provided username</td>
+         </tr>
+	 <tr><td>Database Host</td><td><input type='text' name='dbhost' 
+          value='localhost'></td></tr>
+         <tr>
+          <td>Database Name</td>
+          <td><input type='text' name='dbname' value='profile_security'></td>
+         </tr>
+         <tr>
+          <td>Database Username</td>
+          <td><input type='text' name='dbusername' value='profile_security'></td>
+         </tr>
+         <tr>
+          <td>Database Password</td>
+          <td><input type='password' name='dbpassword1' value='password'></td>
+         </tr>
+	 <tr>
+          <td>Renter Password</td>
+          <td><input type='password' name='dbpassword2' value='password'></td>
+         </tr>
+	 <tr><td><input type='submit' name='action' value='Install'></td></tr>
+    </table>
+  </fieldset>
+ </form>
+</body>

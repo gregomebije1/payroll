@@ -1,0 +1,37 @@
+profile_security1.sql - contains the database dump where the problem was discovered. 
+profile_security2.sql - database dump for February and March. It contains new Employees, Branches and Locations
+acadbase_payroll_security - Contains the core tables for the new version of the software. 
+
+create database acadbase_payroll_security;
+use acadbase_payroll_security;
+source profile_security1.sql;
+
+create database acadbase_payroll_security2;
+use acadbase_payroll_security2;
+source profile_security2.sql;
+
+use acadbase_payroll_security;
+
+--Add new Branches from acadbase_payroll_security2
+insert into branch(id, name) values (23, 'EXTRAL QUICKPAY'), (24, 'ORIENTALS ENERGY');
+
+--Add new Employees
+source employee.sql;
+source employee_di.sql;
+ 
+--Add new Locations
+source location_update.sql;
+
+-- Delete all February payroll information
+delete payroll, payroll_di from payroll join payroll_di  where payroll.id = payroll_di.payroll_id and payroll.payroll_date='2015-02-01';
+delete from payroll where payroll_date='2015-02-01';
+
+-- Merge payroll, payroll_di from acadbase_payroll_security2 and acadbase_payroll_security
+python merge.py
+
+-- Export data from payroll and payroll_di into files stored under the "data" folder
+python migrate.php
+
+-- We no longer need these values
+truncate table payroll;
+truncate table payroll_di
